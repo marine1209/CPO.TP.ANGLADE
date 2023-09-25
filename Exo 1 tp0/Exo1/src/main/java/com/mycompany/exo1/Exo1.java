@@ -5,12 +5,21 @@
 
 package com.mycompany.exo1;
 
+import java.util.Scanner;
+
 /* @author marin
   Anglade Marine, TDB, afficher message, 18 septembre*/
 public class Exo1 {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        System.out.println("Bonjour");
+        System.out.println("aurevoir");
+        String prenom;
+        Scanner sc;
+        sc=new Scanner(System.in);
+        System.out.println("Bonjour, quel est ton prénom ?");
+        prenom= sc.nextLine();
     }
 }
-    
+
+
