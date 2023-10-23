@@ -8,32 +8,34 @@ import Armes.*;
  *
  * @author marin
  */
-public class Magicien extends Personnage {
-  boolean confirme;
+public class Guerrier extends Personnage {
+    boolean cheval; 
 
-    public Magicien(boolean confirme, String nom, double vie) {
+    public Guerrier(boolean cheval, String nom, double vie) {
         super(nom, vie);
-        this.confirme = confirme;
+        this.cheval = cheval;
         nbPersonnage+=1;
     }
 
-    public void setConfirme(boolean confirme) {
-        this.confirme = confirme;
+    public boolean isCheval() {
+        return cheval;
     }
 
     @Override
     public String toString() {
-        return "Magicien{" + "confirme=" + confirme + '}'+ super.toString();
+        return "Guerrier{" + "cheval=" + cheval + '}'+super.toString();
     }
-
+    public void finalize(){
+        nbPersonnage-=1;
+    }
     public void attaquer(Personnage attaqué){
-        double dommage =20;
-        if (Arme_en_Main instanceof Baton){
-            dommage= dommage*  ((Baton) Arme_en_Main ).age;
+        int dommage =20;
+        if (Arme_en_Main instanceof Epee epee){
+            dommage= (int) (dommage*epee.finesse);
         } 
-        if (attaqué instanceof Magicien){
-            if (((Magicien)attaqué).confirme==true){
-                dommage%=2;
+        if (attaqué instanceof Magicien magicien){
+            if (magicien.confirme==true){
+                dommage/=2;
             }
         }
         if (attaqué instanceof Guerrier){
@@ -43,10 +45,12 @@ public class Magicien extends Personnage {
         }
         attaqué.seFatiguer();
         attaqué.estAttaque(dommage);
-    }  
+    }
 
     @Override
     public void estAttaquer(int points) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    
 }

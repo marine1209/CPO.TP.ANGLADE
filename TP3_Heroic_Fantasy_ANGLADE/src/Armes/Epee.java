@@ -8,22 +8,23 @@ package Armes;
  *
  * @author marin
  */
-public class Baton extends Arme {
-    public double age; 
+public class Epee extends Arme {
+    public double finesse; 
 
-    public Baton(double age, String nom, int niveau) {
+    public Epee(double finesse, String nom, int niveau) {
         super(nom, niveau);
-        if (age>100 || age<0){
-        this.age = 0;
+        if (finesse>100 || finesse<0){
+        this.finesse=0;
         }
         else
-        this.age=age;
+            this.finesse = finesse;
     }
 
     @Override
     public String toString() {
-        return "Baton{" + "age=" + age + '}'+super.toString();
+        return "Epee{" + "finesse=" + finesse + '}'+super.toString();
     }
     
-
+    
+    
 }
