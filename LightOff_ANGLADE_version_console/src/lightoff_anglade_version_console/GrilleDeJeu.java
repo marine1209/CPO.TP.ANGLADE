@@ -134,7 +134,7 @@ public class GrilleDeJeu {
      */
     public boolean cellulesToutesEteintes(){
       for (int i = 0; i<nbLignes; i++){
-          for (int j = 0; j<nbColonnes; i++){
+          for (int j = 0; j<nbLignes; j++){
               if (matriceCellules[i][j].estEteint()==false){
                   return false;
               }
