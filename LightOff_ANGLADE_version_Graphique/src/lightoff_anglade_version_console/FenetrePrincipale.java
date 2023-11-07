@@ -5,6 +5,8 @@
 package lightoff_anglade_version_console;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 /**
@@ -16,23 +18,79 @@ public class FenetrePrincipale extends javax.swing.JFrame {
     /**
      * Creates new form FenetrePrincipale
      */
-    GrilleDeJeu grille; 
-        int nbCoups; 
-        int dimension; 
-        int nbCoupsMax; 
-        int nbMelange; 
+    GrilleDeJeu grille;
+    int nbCoups;
+    int dimension;
+    int nbCoupsMax;
+    int nbMelange;
+    int i;
+
     public FenetrePrincipale() {
         initComponents();
-        int nbLignes = 10;
-        int nbColonnes = 10;
-        this.grille=new GrilleDeJeu(nbLignes, nbColonnes);
-        PanneauGrille.setLayout(new GridLayout(nbLignes, nbColonnes));
-        for (int i=0; i < nbLignes; i++) {
-for (int j=0; j < nbColonnes; j++ ) {
-CelluleGraphique bouton_cellule = new CelluleGraphique( grille.matriceCellules[i][j], 36,36); // création d'un bouton
-PanneauGrille.add(bouton_cellule); // ajout au Jpanel PanneauGrille
-}
-}
+        BoutonFacile.setVisible(false);
+        BoutonMoyen.setVisible(false);
+        BoutonDifficile.setVisible(false);
+        PanneauGrille.setVisible(false);
+
+    }
+
+    public void creerPanel() {
+        // initComponents();
+        int nbLignes = dimension;
+        int nbColonnes = dimension;
+        this.grille = new GrilleDeJeu(nbLignes, nbColonnes);
+        PanneauGrille.setLayout(new GridLayout(dimension, dimension));
+        for (int i = 0; i < nbLignes; i++) {
+            for (int j = 0; j < nbColonnes; j++) {
+                CelluleGraphique bouton_cellule = new CelluleGraphique(grille.matriceCellules[i][j], 36, 36); // création d'un bouton
+
+                PanneauGrille.add(bouton_cellule); // ajout au Jpanel PanneauGrille
+            }
+        }
+        boutonsVerticaux.setLayout(new GridLayout(nbLignes, 1));
+        getContentPane().add(boutonsVerticaux, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 1 * 40, nbLignes * 40));
+        this.pack();
+        this.revalidate();
+        // création du panneau de boutons verticaux (pour les lignes)
+        for (i = 0; i < nbLignes; i++) {
+            JButton bouton_ligne = new JButton();
+            ActionListener ecouteurClick = new ActionListener() {
+                final int j = i;
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    grille.activerLigneDeCellules(j);
+                    repaint();
+                }
+            };
+            bouton_ligne.addActionListener(ecouteurClick);
+            boutonsVerticaux.add(bouton_ligne);
+        };
+        boutonsHorizontaux.setLayout(new GridLayout(nbColonnes, 1));
+        getContentPane().add(boutonsHorizontaux, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 1 * 40, nbColonnes * 40));
+        this.pack();
+        this.revalidate();
+        // création du panneau de boutons verticaux (pour les lignes)
+        for (i = 0; i < nbLignes; i++) {
+            JButton bouton_ligne = new JButton();
+            ActionListener ecouteurClick = new ActionListener() {
+                final int j = i;
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    grille.activerLigneDeCellules(j);
+                    repaint();
+                }
+            };
+            bouton_ligne.addActionListener(ecouteurClick);
+            boutonsHorizontaux.add(bouton_ligne);
+        };
+        PanneauGrille.setVisible(true);
+
+        getContentPane().add(PanneauGrille, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, nbColonnes * 40, nbLignes * 40));
+        this.pack();
+        this.revalidate();
+
     }
 
     /**
@@ -45,7 +103,12 @@ PanneauGrille.add(bouton_cellule); // ajout au Jpanel PanneauGrille
     private void initComponents() {
 
         PanneauGrille = new javax.swing.JPanel();
-        btnLigne0 = new javax.swing.JButton();
+        boutonsVerticaux = new javax.swing.JPanel();
+        demanderNiveau = new javax.swing.JButton();
+        BoutonFacile = new javax.swing.JButton();
+        BoutonMoyen = new javax.swing.JButton();
+        BoutonDifficile = new javax.swing.JButton();
+        boutonsHorizontaux = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -64,24 +127,98 @@ PanneauGrille.add(bouton_cellule); // ajout au Jpanel PanneauGrille
             .addGap(0, 360, Short.MAX_VALUE)
         );
 
-        getContentPane().add(PanneauGrille, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 360, 360));
+        getContentPane().add(PanneauGrille, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 360, 360));
 
-        btnLigne0.setText("btnLigne0");
-        btnLigne0.addActionListener(new java.awt.event.ActionListener() {
+        javax.swing.GroupLayout boutonsVerticauxLayout = new javax.swing.GroupLayout(boutonsVerticaux);
+        boutonsVerticaux.setLayout(boutonsVerticauxLayout);
+        boutonsVerticauxLayout.setHorizontalGroup(
+            boutonsVerticauxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 30, Short.MAX_VALUE)
+        );
+        boutonsVerticauxLayout.setVerticalGroup(
+            boutonsVerticauxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 360, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(boutonsVerticaux, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 30, 360));
+
+        demanderNiveau.setText("Choix du niveau");
+        demanderNiveau.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLigne0ActionPerformed(evt);
+                demanderNiveauActionPerformed(evt);
             }
         });
-        getContentPane().add(btnLigne0, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, -1, -1));
+        getContentPane().add(demanderNiveau, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, -1, -1));
+
+        BoutonFacile.setText("Facile");
+        BoutonFacile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BoutonFacileActionPerformed(evt);
+            }
+        });
+        getContentPane().add(BoutonFacile, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 480, -1, -1));
+
+        BoutonMoyen.setText("Moyen");
+        BoutonMoyen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BoutonMoyenActionPerformed(evt);
+            }
+        });
+        getContentPane().add(BoutonMoyen, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 480, -1, -1));
+
+        BoutonDifficile.setText("Difficile");
+        BoutonDifficile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BoutonDifficileActionPerformed(evt);
+            }
+        });
+        getContentPane().add(BoutonDifficile, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 480, -1, -1));
+
+        boutonsHorizontaux.setPreferredSize(new java.awt.Dimension(360, 0));
+
+        javax.swing.GroupLayout boutonsHorizontauxLayout = new javax.swing.GroupLayout(boutonsHorizontaux);
+        boutonsHorizontaux.setLayout(boutonsHorizontauxLayout);
+        boutonsHorizontauxLayout.setHorizontalGroup(
+            boutonsHorizontauxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 360, Short.MAX_VALUE)
+        );
+        boutonsHorizontauxLayout.setVerticalGroup(
+            boutonsHorizontauxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(boutonsHorizontaux, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 360, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnLigne0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLigne0ActionPerformed
+    private void demanderNiveauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_demanderNiveauActionPerformed
         // TODO add your handling code here:
-        this.grille.activerLigneDeCellules(0);
-        repaint();
-    }//GEN-LAST:event_btnLigne0ActionPerformed
+        BoutonMoyen.setVisible(true);
+        BoutonDifficile.setVisible(true);
+        BoutonFacile.setVisible(true);
+
+    }//GEN-LAST:event_demanderNiveauActionPerformed
+
+    private void BoutonMoyenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonMoyenActionPerformed
+        // TODO add your handling code here:
+        this.dimension = 7;
+        creerPanel();
+    }//GEN-LAST:event_BoutonMoyenActionPerformed
+
+    private void BoutonFacileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonFacileActionPerformed
+        // TODO add your handling code here:
+        this.dimension = 5;
+        creerPanel();
+    }//GEN-LAST:event_BoutonFacileActionPerformed
+
+    private void BoutonDifficileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonDifficileActionPerformed
+        // TODO add your handling code here:
+        this.dimension = 10;
+        creerPanel();
+
+
+    }//GEN-LAST:event_BoutonDifficileActionPerformed
 
     /**
      * @param args the command line arguments
@@ -119,7 +256,12 @@ PanneauGrille.add(bouton_cellule); // ajout au Jpanel PanneauGrille
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BoutonDifficile;
+    private javax.swing.JButton BoutonFacile;
+    private javax.swing.JButton BoutonMoyen;
     private javax.swing.JPanel PanneauGrille;
-    private javax.swing.JButton btnLigne0;
+    private javax.swing.JPanel boutonsHorizontaux;
+    private javax.swing.JPanel boutonsVerticaux;
+    private javax.swing.JButton demanderNiveau;
     // End of variables declaration//GEN-END:variables
 }
