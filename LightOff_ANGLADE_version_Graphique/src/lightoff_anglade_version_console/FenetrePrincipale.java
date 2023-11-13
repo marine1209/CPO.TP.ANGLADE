@@ -25,6 +25,9 @@ public class FenetrePrincipale extends javax.swing.JFrame {
     int nbMelange;
     int i;
 
+    /**
+     *
+     */
     public FenetrePrincipale() {
         initComponents();
         BoutonFacile.setVisible(false);
@@ -35,6 +38,9 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         pannel_finDePartie.setVisible(false);
     }
 
+    /**
+     *
+     */
     public void creerPanel() {
         // initComponents();
         int nbLignes = dimension;
@@ -276,12 +282,16 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         BoutonFacile.setVisible(true);
 
     }//GEN-LAST:event_demanderNiveauActionPerformed
+
+    /**
+     *
+     */
     public void initialiserPartie() {
         if (dimension == 5) {
             this.nbCoupsMax = 20;
             this.nbMelange = 100;
         } else if (dimension == 7) {
-            this.nbCoupsMax = 15;
+            this.nbCoupsMax = 10;
             this.nbMelange = 150;
         } else if (dimension == 10) {
             this.nbCoupsMax = 10;
@@ -295,6 +305,9 @@ public class FenetrePrincipale extends javax.swing.JFrame {
 
     }
 
+    /**
+     *
+     */
     public void Gagner() {
         if (nbCoupsMax == nbCoups) {
             finDePartie();
@@ -307,6 +320,9 @@ public class FenetrePrincipale extends javax.swing.JFrame {
         }
     }
 
+    /**
+     *
+     */
     public void finDePartie() {
         PanneauGrille.setVisible(false);
         pannel_infos.setVisible(false);
